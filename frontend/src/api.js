@@ -1,9 +1,9 @@
 import axios from "axios";
 
-// ✅ Your deployed backend base URL
 const API = axios.create({
-  baseURL: "https://slotswapper-w7bt.onrender.com/api",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
+
 
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
