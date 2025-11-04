@@ -1,0 +1,53 @@
+.dashboard-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.event-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.event-form input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.event-card h3 {
+  color: #007bff;
+  margin-bottom: 0.4rem;
+}
+
+.status {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status.busy {
+  background: #ffe5e5;
+  color: #d9534f;
+}
+
+.status.swappable {
+  background: #e5fff0;
+  color: #28a745;
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.card.event-card button {
+  margin-top: 0.5rem;
+}
