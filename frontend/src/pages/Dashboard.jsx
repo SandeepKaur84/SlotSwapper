@@ -18,13 +18,19 @@ export default function Dashboard() {
     }
   };
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    load();
+  }, []);
 
   // Create event
   const create = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/events", form);
+      await API.post("/events", {
+        title: form.title,
+        startTime: new Date(form.startTime).toISOString(),
+        endTime: new Date(form.endTime).toISOString(),
+      });
       setForm({ title: "", startTime: "", endTime: "" });
       load();
     } catch (err) {
@@ -65,7 +71,9 @@ export default function Dashboard() {
             onChange={(e) => setForm({ ...form, endTime: e.target.value })}
             required
           />
-          <button type="submit" className="btn">+ Add Event</button>
+          <button type="submit" className="btn">
+            + Add Event
+          </button>
         </form>
 
         {/* Event List */}
@@ -75,17 +83,35 @@ export default function Dashboard() {
               <div key={ev._id} className="card event-card">
                 <h3>{ev.title}</h3>
                 <p>
-                  <b>From:</b> {new Date(ev.startTime).toLocaleString()}
+                  <b>From:</b>{" "}
+                  {new Date(ev.startTime).toLocaleString(undefined, {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  })}
                 </p>
                 <p>
-                  <b>To:</b> {new Date(ev.endTime).toLocaleString()}
+                  <b>To:</b>{" "}
+                  {new Date(ev.endTime).toLocaleString(undefined, {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  })}
                 </p>
-                <p>Status: <span className={`status ${ev.status.toLowerCase()}`}>{ev.status}</span></p>
+
+                <p>
+                  Status:{" "}
+                  <span className={`status ${ev.status.toLowerCase()}`}>
+                    {ev.status}
+                  </span>
+                </p>
                 <button
                   onClick={() => toggleSwappable(ev)}
-                  className={`btn ${ev.status === "SWAPPABLE" ? "btn-outline" : ""}`}
+                  className={`btn ${
+                    ev.status === "SWAPPABLE" ? "btn-outline" : ""
+                  }`}
                 >
-                  {ev.status === "SWAPPABLE" ? "Unmark Swappable" : "Make Swappable"}
+                  {ev.status === "SWAPPABLE"
+                    ? "Unmark Swappable"
+                    : "Make Swappable"}
                 </button>
               </div>
             ))
